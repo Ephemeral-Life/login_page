@@ -9,7 +9,18 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+
+    "@apollo/client": "^3.7.14",
+    "antd": "^5.4.6",
+	  "apollo-server-express": "^3.12.0",
+    "react-router-dom": "6.3.0",
+    "apollo-server": "^2.25.2",
+	
+	  "graphql-tools": "^8.3.20",
+    "graphql": "^15.3.0",
+	
+    "mysql2": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -34,5 +45,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint-config-react-app": "^7.0.1",
+    "jest-editor-support": "^31.0.1"
   }
 }
