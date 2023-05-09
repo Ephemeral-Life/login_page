@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
-
+import { useNavigate } from'react-router-dom';
 type FormData = {
     username: string;
     password: string;
@@ -33,15 +33,16 @@ export default function Result() {
   const location = useLocation();
   const state = location.state as FormData;
   const { loading, error, users } = useUserQuery(state.username, state.password);
-  console.log(users);
+  const navigate = useNavigate();
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
   if (!users || users.length === 0) {
-    return(
-      <div>
-        <h1>账号不存在</h1>
-      </div>
-    )
+    navigate('/', {state: {error: "no_such_user"}});
+    // return(
+    //   <div>
+    //     <h1>账号不存在</h1>
+    //   </div>
+    // )
   }
   else{
     return (
