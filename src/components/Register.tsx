@@ -1,10 +1,4 @@
-import {
-  Button,
-  Form,
-  Input,
-  Radio,
-  message,
-} from 'antd';
+import { Button, Form, Input, message} from 'antd';
 import React from 'react';
 import './css/login.css';
 import { gql, useMutation } from '@apollo/client';
@@ -30,13 +24,12 @@ const Register: React.FC<RegisterProps> = (props) => {
   if(loading)
       info("loading...");
   try {
-    const { username, password, gender } = values;
+    const { username, password } = values;
     await createUser({
       variables: {
         input: { 
           username: username, 
           password: password, 
-          gender: gender 
         },
       },
     });
@@ -74,15 +67,18 @@ const Register: React.FC<RegisterProps> = (props) => {
         >
           <Input.Password />
         </Form.Item>
-        <Form.Item
-          label="性别"
-          name="gender"
-          rules={[{ required: true, message: '请选择性别！' }]}
+        <Form.Item label="确认密码" name="repassword" rules={[{required: true, message: ''},
+          ({getFieldValue})=>({
+            validator(_, value){
+              if(!value || getFieldValue('password') === value){
+                return Promise.resolve()
+              }
+              return Promise.reject("两次密码输入不一致")
+            }
+          })
+        ]}
         >
-          <Radio.Group name='gender'>
-            <Radio value="male">男性</Radio>
-            <Radio value="female">女性</Radio>
-          </Radio.Group>
+	      <Input.Password/>
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
           <Button type="primary" htmlType="submit">注册</Button>
